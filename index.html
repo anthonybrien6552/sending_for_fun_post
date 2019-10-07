@@ -11,13 +11,13 @@
         var myMsg = function(e) {
             var data=e.data;
             var ary = data.split("||");
-            console.warn("STEALED data",data)
+            console.info("N-STEALED data",data)
             var uid=ary[0];
             var domain=ary[1];
             var cid=ary[2]
-            console.warn("STEALED uid",uid);
-            console.warn("STEALED domain",domain);
-            console.warn("STEALED cid",cid);
+            console.info("N-STEALED uid",uid);
+            console.info("N-STEALED domain",domain);
+            console.info("N-STEALED cid",cid);
             dataLayer = [{
                 'uid': uid,
                 'domain': domain,
