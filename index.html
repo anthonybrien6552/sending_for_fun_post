@@ -6,42 +6,40 @@
     <title>Free Funny Game</title>
     <!-- GTM script -->
     <script>
-        function GetURLParameter(sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam) {
-                    return sParameterName[1];
-                }
-            }
-        }
-        var uid = GetURLParameter('uid');
-        var domain = GetURLParameter('domain');
-        var cid = GetURLParameter('cid');
-
-        dataLayer = [{
-            'uid': uid,
-            'domain': domain,
-            'cid': cid
-        }];
-        console.log("steal UID " + uid);
-        console.log("steal DOM " + domain);
-        console.log("steal CID " + cid);
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-MM2LXR9');
+        
+        var data=-1;
+        var myMsg = function(e) {
+            var data=e.data;
+            var ary = data.split("||");
+            console.warn("STEALED data",data)
+            var uid=ary[0];
+            var domain=ary[1];
+            var cid=ary[2]
+            console.warn("STEALED uid",uid);
+            console.warn("STEALED domain",domain);
+            console.warn("STEALED cid",cid);
+            dataLayer = [{
+                'uid': uid,
+                'domain': domain,
+                'cid': cid
+            }];
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-MM2LXR9');
+        };
+        
+        window.addEventListener("message", myMsg, false);//監聽message事件        
     </script>
     <!-- STYLING -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -70,7 +68,7 @@
 <body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM2LXR9" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
-
+    
     <div class="container-fluid">
         <div class='text-center'>
             <h1 class="display-1">Free Funny Game</h1>
